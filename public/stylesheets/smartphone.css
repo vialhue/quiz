@@ -1,0 +1,16 @@
+body {
+  background: #333;
+  font-size: xx-large;
+}
+
+#page-wrap:after {
+  content: "smartphone.css";
+}
+
+h2 span, h3 section {
+  display: none;
+}
+
+footer, input {
+  font-size: large;
+}
