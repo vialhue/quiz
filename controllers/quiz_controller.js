@@ -16,9 +16,20 @@ exports.load = function(req, res, next, quizId) {
 
 // método GET para /quizes
 exports.index = function(req, res) {
-    models.Quiz.findAll().then(function(quizes) {
-        res.render('quizes/index.ejs', { quizes : quizes});
-    });
+    if (req.query.search !== undefined) {
+        // La petición llega del buscador, enviaremos solo las quizes según el patrón.
+        var buscar = "%" + req.query.search.replace(" ", "%") + "%";
+        models.Quiz.findAll({where: ["pregunta like ?", buscar]}).then(
+            function(quizes) {
+                res.render('quizes/index.ejs', { quizes : quizes});
+            }
+        );
+    } else {
+        // La petición llega sin parametro de buscar, por tanto se envian todas.
+        models.Quiz.findAll().then(function(quizes) {
+            res.render('quizes/index.ejs', { quizes : quizes});
+        });
+    }
 }
 
 // método GET para las /quizes/:id, ahora busca la pegrunta en la BBDD
