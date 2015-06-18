@@ -31,17 +31,18 @@ var Quiz = sequelize.import(path.join(__dirname, 'quiz'));
 exports.Quiz = Quiz;
 
 // Crear e inicializr la tabla en la BBDD.
-// He tenido que usar las "promesas" ya que con otras versiones de seuelize me decia que estaba obsoleta.
 // 1 - Sincronizar la BBDD
-sequelize.sync().success(function() {
+sequelize.sync().then(function() {
     // 2 - Cuenta los registros de QUIZ (para ver si está vacia).
-    Quiz.count().success(function(count) {
+    Quiz.count().then(function(count) {
         // 3 - Si tiene 0 registros, esta vacia, la crea con una pregunta.
         if (count === 0) {
             Quiz.create({ pregunta: 'Capital de Italia',
-                           respuesta: 'Roma'
-                        }).success(function() {
-                                console.log('Base de datos inicializada con 1 pregunta.');
+                          respuesta: 'Roma'
+                        });            
+            Quiz.create({ pregunta: 'Capital de Portugal',
+                          respuesta: 'Lisboa'
+                        }).then(function() { console.log('Base de datos inicializada con 1 pregunta.');
             });
         }
     });
