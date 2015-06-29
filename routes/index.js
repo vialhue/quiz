@@ -3,7 +3,7 @@ var router = express.Router();
 var quizController = require('../controllers/quiz_controller');
 
 // Pagina de entrada
-router.get('/', function(req, res) { res.render('index', { title: 'Quiz' }); });
+router.get('/', function(req, res) { res.render('index', { title: 'Quiz', errors : [] }); });
 
 // Pagina de creditos
 router.get('/author', function(req, res) { res.render('author', {}); });
