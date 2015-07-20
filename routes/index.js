@@ -6,7 +6,7 @@ var quizController = require('../controllers/quiz_controller');
 router.get('/', function(req, res) { res.render('index', { title: 'Quiz', errors : [] }); });
 
 // Pagina de creditos
-router.get('/author', function(req, res) { res.render('author', {}); });
+router.get('/author', function(req, res) { res.render('author', { errors : []} ); });
 
 // Autoload de comandos con :quizId
 router.param('quizId', quizController.load);
