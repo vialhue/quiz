@@ -34,6 +34,25 @@ app.use(function(req, res, next) {
     next();
 });
 
+// Se destruira la session de user a los dos minutos sin que se haya pasado por aqui.
+app.use(function(req, res, next) {
+    if (req.session.user) {
+        if (req.session.ultimaAccion) {
+            var dosminutos = 2*60*1000; // En milisegundos, es como lo toma Date.now()
+            if (Date.now() - req.session.ultimaAccion >= dosminutos) {
+                delete req.session.ultimaAccion;
+                delete req.session.user;
+            } else{
+                req.session.ultimaAccion = Date.now();
+            }
+        } else {
+            req.session.ultimaAccion = Date.now();
+        }
+        res.locals.session = req.session;
+    }
+    next();
+});
+
 app.use('/', routes);
 
 // catch 404 and forward to error handler
