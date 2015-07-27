@@ -45,3 +45,15 @@ nav span {
     color : #f61;
     font-size: smaller;
 }
+
+.alinearIzquierda {
+    text-align:  left;
+}
+
+.alinearDerecha {
+    text-align: right;
+}
+
+.tablaEstadistica {
+    width: 350px;
+}
